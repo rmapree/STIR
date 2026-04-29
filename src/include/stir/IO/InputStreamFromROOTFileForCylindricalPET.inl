@@ -29,20 +29,21 @@ InputStreamFromROOTFileForCylindricalPET::get_num_rings() const
 int
 InputStreamFromROOTFileForCylindricalPET::get_num_dets_per_ring() const
 {
-  return static_cast<int>(this->rsector_repeater * this->module_repeater_y * this->submodule_repeater_y
-                          * this->crystal_repeater_y);
+  return static_cast<int>(this->rsector_repeater * this->module_repeater_x * this->submodule_repeater_x
+                          * this->crystal_repeater_x);
 }
+// modified to just have submodule repeater values as the values in the stir sinogram header
 
 int
 InputStreamFromROOTFileForCylindricalPET::get_num_transaxial_blocks_per_bucket_v() const
 {
-  return this->submodule_repeater_y;
+  return this->submodule_repeater_x;
 }
 
 int
 InputStreamFromROOTFileForCylindricalPET::get_num_axial_blocks_per_bucket_v() const
 {
-  return this->submodule_repeater_z;
+  return this->module_repeater_z;
 }
 
 int
@@ -66,11 +67,11 @@ int
 InputStreamFromROOTFileForCylindricalPET::get_num_trans_crystals_per_singles_unit() const
 {
   if (this->singles_readout_depth == 1) // One PMT per Rsector
-    return static_cast<int>(this->module_repeater_y * this->submodule_repeater_y * this->crystal_repeater_y);
+    return static_cast<int>(this->module_repeater_x * this->submodule_repeater_x * this->crystal_repeater_x);
   else if (this->singles_readout_depth == 2) // One PMT per module
-    return static_cast<int>(this->submodule_repeater_y * this->crystal_repeater_y);
+    return static_cast<int>(this->submodule_repeater_x * this->crystal_repeater_x);
   else if (this->singles_readout_depth == 3) // One PMT per submodule
-    return this->crystal_repeater_y;
+    return this->crystal_repeater_x;
   else if (this->singles_readout_depth == 4) // One PMT per crystal
     return 1;
   else

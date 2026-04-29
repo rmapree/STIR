@@ -175,6 +175,30 @@ CListModeDataROOT::CListModeDataROOT(const std::string& hroot_filename)
                                           size_timing_bin,
                                           /* Scanner's timing resolution */
                                           timing_resolution));
+
+
+        std::cerr << "\n===== DEBUG: STIR vs GATE geometry =====\n";
+
+        std::cerr << "STIR scanner:\n";
+        std::cerr << "  rings = " << this_scanner_sptr->get_num_rings() << '\n';
+        std::cerr << "  dets/ring = " << this_scanner_sptr->get_num_detectors_per_ring() << '\n';
+        std::cerr << "  axial blocks/bucket = " << this_scanner_sptr->get_num_axial_blocks_per_bucket() << '\n';
+        std::cerr << "  trans blocks/bucket = " << this_scanner_sptr->get_num_transaxial_blocks_per_bucket() << '\n';
+        std::cerr << "  axial crystals/block = " << this_scanner_sptr->get_num_axial_crystals_per_block() << '\n';
+        std::cerr << "  trans crystals/block = " << this_scanner_sptr->get_num_transaxial_crystals_per_block() << '\n';
+        std::cerr << "  axial crystals/singles = " << this_scanner_sptr->get_num_axial_crystals_per_singles_unit() << '\n';
+        std::cerr << "  trans crystals/singles = " << this_scanner_sptr->get_num_transaxial_crystals_per_singles_unit() << '\n';
+
+
+
+
+
+
+
+
+
+
+
     }
   // have to do this here currently as these variables cannot be set via the constructor
   if (num_virtual_axial_crystals_per_block >= 0)
@@ -335,8 +359,22 @@ CListModeDataROOT::check_scanner_match_geometry(std::string& ret, const shared_p
   if (!ok)
     {
       ret = stream.str();
+    std::cerr << "GATE-derived geometry:\n";
+    std::cerr << "  rings = " << root_file_sptr->get_num_rings() << '\n';
+    std::cerr << "  dets/ring = " << root_file_sptr->get_num_dets_per_ring() << '\n';
+    std::cerr << "  axial blocks/bucket = " << root_file_sptr->get_num_axial_blocks_per_bucket_v() << '\n';
+    std::cerr << "  trans blocks/bucket = " << root_file_sptr->get_num_transaxial_blocks_per_bucket_v() << '\n';
+    std::cerr << "  axial crystals/block = " << root_file_sptr->get_num_axial_crystals_per_block_v() << '\n';
+    std::cerr << "  trans crystals/block = " << root_file_sptr->get_num_transaxial_crystals_per_block_v() << '\n';
+    std::cerr << "  axial crystals/singles = " << root_file_sptr->get_num_axial_crystals_per_singles_unit() << '\n';
+    std::cerr << "  trans crystals/singles = " << root_file_sptr->get_num_trans_crystals_per_singles_unit() << '\n';
+
+    std::cerr << "========================================\n\n";
+
       return Succeeded::no;
+    
     }
+
 
   return Succeeded::yes;
 }
@@ -374,6 +412,7 @@ CListModeDataROOT::check_scanner_definition(std::string& ret)
       ret = stream.str();
 
       return Succeeded::no;
+
     }
   if (max_num_timing_bins <= 0 || size_timing_bin <= 1.F || timing_resolution <= 0.F)
     info(format("CListModeDataROOT: TOF information is missing. Set relevant keywords if you need TOF:\n\t{}\n\t{}\n\t{}",
@@ -383,5 +422,11 @@ CListModeDataROOT::check_scanner_definition(std::string& ret)
 
   return Succeeded::yes;
 }
+
+
+
+
+
+
 
 END_NAMESPACE_STIR

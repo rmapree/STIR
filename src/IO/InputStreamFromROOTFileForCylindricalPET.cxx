@@ -100,23 +100,23 @@ InputStreamFromROOTFileForCylindricalPET::get_next_record(CListRecordROOT& recor
         break;
       }
 
-    ring1 = static_cast<int>(crystalID1 / crystal_repeater_y)
-            + static_cast<int>(submoduleID1 / submodule_repeater_y) * get_num_axial_crystals_per_block_v()
-            + static_cast<int>(moduleID1 / module_repeater_y) * submodule_repeater_z * get_num_axial_crystals_per_block_v();
+    ring1 = static_cast<int>(crystalID1 / crystal_repeater_x)
+            + static_cast<int>(submoduleID1 / submodule_repeater_x) * get_num_axial_crystals_per_block_v()
+            + static_cast<int>(moduleID1 / module_repeater_x) * submodule_repeater_z * get_num_axial_crystals_per_block_v();
 
-    ring2 = static_cast<int>(crystalID2 / crystal_repeater_y)
-            + static_cast<int>(submoduleID2 / submodule_repeater_y) * get_num_axial_crystals_per_block_v()
-            + static_cast<int>(moduleID2 / module_repeater_y) * submodule_repeater_z * get_num_axial_crystals_per_block_v();
+    ring2 = static_cast<int>(crystalID2 / crystal_repeater_x)
+            + static_cast<int>(submoduleID2 / submodule_repeater_x) * get_num_axial_crystals_per_block_v()
+            + static_cast<int>(moduleID2 / module_repeater_x) * submodule_repeater_z * get_num_axial_crystals_per_block_v();
 
-    crystal1 = rsectorID1 * module_repeater_y * submodule_repeater_y * get_num_transaxial_crystals_per_block_v()
-               + (moduleID1 % module_repeater_y) * submodule_repeater_y * get_num_transaxial_crystals_per_block_v()
-               + (submoduleID1 % submodule_repeater_y) * get_num_transaxial_crystals_per_block_v()
-               + (crystalID1 % crystal_repeater_y);
+    crystal1 = rsectorID1 * module_repeater_x * submodule_repeater_x * get_num_transaxial_crystals_per_block_v()
+               + (moduleID1 % module_repeater_x) * submodule_repeater_x * get_num_transaxial_crystals_per_block_v()
+               + (submoduleID1 % submodule_repeater_x) * get_num_transaxial_crystals_per_block_v()
+               + (crystalID1 % crystal_repeater_x);
 
-    crystal2 = rsectorID2 * module_repeater_y * submodule_repeater_y * get_num_transaxial_crystals_per_block_v()
-               + (moduleID2 % module_repeater_y) * submodule_repeater_y * get_num_transaxial_crystals_per_block_v()
-               + (submoduleID2 % submodule_repeater_y) * get_num_transaxial_crystals_per_block_v()
-               + (crystalID2 % crystal_repeater_y);
+    crystal2 = rsectorID2 * module_repeater_x * submodule_repeater_x * get_num_transaxial_crystals_per_block_v()
+               + (moduleID2 % module_repeater_x) * submodule_repeater_x * get_num_transaxial_crystals_per_block_v()
+               + (submoduleID2 % submodule_repeater_x) * get_num_transaxial_crystals_per_block_v()
+               + (crystalID2 % crystal_repeater_x);
 
     // GATE counts crystal ID =0 the most negative. Therefore
     // ID = 0 should be negative, in Rsector 0 and the mid crystal ID be 0 .
@@ -158,7 +158,7 @@ InputStreamFromROOTFileForCylindricalPET::set_defaults()
   module_repeater_z = -1;
   rsector_repeater = -1;
 #ifdef STIR_ROOT_ROTATION_AS_V4
-  half_block = module_repeater_y * submodule_repeater_y * crystal_repeater_y / 2 - 1;
+  half_block = module_repeater_x * submodule_repeater_x * crystal_repeater_x / 2 - 1;
   if (half_block < 0)
     half_block = 0;
 #else

@@ -161,7 +161,7 @@ InputStreamFromROOTFile::get_num_axial_crystals_per_block_v() const
 int
 InputStreamFromROOTFile::get_num_transaxial_crystals_per_block_v() const
 {
-  return this->crystal_repeater_y + this->num_virtual_transaxial_crystals_per_block;
+  return this->crystal_repeater_x + this->num_virtual_transaxial_crystals_per_block;
 }
 
 int
